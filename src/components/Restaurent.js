@@ -1,21 +1,39 @@
-import React from 'react'
+import React  from 'react'
+import { useState } from "react"
+import Menu  from '../Menu';
+import MenuCard from './MenuCard'
+import Navbar from './Navbar';
+
+const uniqueList = [...new Set(Menu.map((currentElem)=>{  // to get unique data with new Set
+   
+    return currentElem.category;
+})
+),
+"All",
+]
+
 
 const Restaurent = () => {
+
+    const [menuData, setMenuData] = useState( Menu);
+    const [updatedList,setupdatedList] = useState(uniqueList);
+
+    const filterItems = (category) => {
+      if (category === 'All') {
+        setMenuData(Menu);
+        return;
+      }
+        const updatedList = Menu.filter((currentElem)=>{
+        return  currentElem.category===  category;
+      });
+      setMenuData(updatedList);
+    }
+        
   return (
    <>
-   <div className="card" style={{ width: "18rem" }}>
-    <img className="card-img-top" src="https://th.bing.com/th/id/OIP.SCyu6dthbIIEVJ-lPePx8gHaE7?pid=ImgDet&rs=1" alt="Card cap" />
-    <div className="card-body">
-      <h5 className="card-title">Card title</h5>
-      <p className="card-text">
-        Some quick example text to build on the card title and make up the bulk
-        of the card's content.
-      </p>
-      <a href="https://th.bing.com/th/id/OIP.SCyu6dthbIIEVJ-lPePx8gHaE7?pid=ImgDet&rs=1" className="btn btn-primary">
-        Go somewhere
-      </a>
-    </div>
-  </div>
+     <Navbar filterItems = {filterItems} updatedList = {updatedList} />
+    <MenuCard menuData = {menuData}/>
+    
    </>
   )
 }

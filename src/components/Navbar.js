@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Navbar = () => {
+const Navbar = ({filterItems , updatedList}) => {
   return (
-    <>
-<nav className="navbar navbar-dark bg-dark">
-  <a className="navbar-brand" href="#">
-    Navbar
+  <>
+  <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a className="navbar-brand" href="www.google.com">
+    MacD Restaurent
   </a>
   <button
     className="navbar-toggler"
@@ -20,19 +20,26 @@ const Navbar = () => {
   </button>
   <div className="collapse navbar-collapse" id="navbarNav">
     <ul className="navbar-nav">
-      <li className="nav-item active">
-        <a className="nav-link" href="#">
-          Home 
-        </a>
+    {
+     updatedList.map((type) =>{
+      return (
+        
+        <>
+        <li className="nav-item">
+      <button className="nav-link" style={{background: 'none', border: 'none'}}
+         onClick={()=>filterItems(type)}>
+          {type}
+        </button>
       </li>
-     
-
-
+        </>
+      )
+      })
+    }
     </ul>
   </div>
 </nav>
-
   </>
+
   )
 }
 
